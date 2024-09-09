@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:15.1-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydb
+    ports:
+      - 5432:5432
+
+  migrate:
+    image: flyway/flyway:9.8.1
+    container_name: migrate
+    command: -url=jdbc:postgresql://postgres:5432/mydb -user=root -password=password -locations=filesystem:/flyway/sql migrate
+    volumes:
+      - ../migrations:/flyway/sql
+    depends_on:
+      - postgres
