@@ -1,7 +1,13 @@
 export default function Home() {
   return (
     <div>
-      <h1>Hello, World!</h1>
+      <ul>
+        <li>
+          <a href="/actors/1" className="text-blue-800">
+            声優１
+          </a>{' '}
+        </li>
+      </ul>
     </div>
   );
 }
