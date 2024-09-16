@@ -1,25 +1,4 @@
-import ContentCatergoryList from '@/app/components/ui/actors/ContentCategoryList';
-import { IoMdMicrophone } from 'react-icons/io';
-
-type NameCardProps = {
-  children: string;
-};
-
-const NameCard = ({ children }: NameCardProps) => {
-  return (
-    <div className="flex w-full p-5 border border-gray-200 ">
-      <div
-        className="rounded-lg bg-pink-200 p-2 mr-3 flex items-center justify-center"
-        style={{ width: '40px', height: '40px' }}
-      >
-        <IoMdMicrophone className="text-gray-800 text-2xl" />
-      </div>
-      <h2 className="my-auto text-2xl font-MPlusRounded1c text-gray-800">
-        {children}
-      </h2>
-    </div>
-  );
-};
+import ContentCatergoryList from '@/app/components/ui/entertainers/ContentCategoryList';
 
 // TODO: APIからデータを取得する
 const entertainer = {
@@ -70,10 +49,7 @@ const entertainer = {
 
 const EntertainerPage = () => {
   return (
-    <div>
-      <NameCard>{entertainer.name}</NameCard>
-      <ContentCatergoryList contentCategories={entertainer.contentCategories} />
-    </div>
+    <ContentCatergoryList contentCategories={entertainer.contentCategories} />
   );
 };
 
