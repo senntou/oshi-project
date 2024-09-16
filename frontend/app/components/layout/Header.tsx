@@ -1,11 +1,16 @@
 'use client';
 import { useAuthContext } from '@/app/context/AuthProvider';
 import { login, logout } from '@/app/lib/auth/auth';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Header: React.FC = () => {
   const { user } = useAuthContext();
+  const router = useRouter();
 
+  const onClickHomeHandler = () => {
+    router.push('/');
+  };
   const loginHandler = () => {
     login();
   };
@@ -19,21 +24,24 @@ const Header: React.FC = () => {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <a href="/" className="hover:text-gray-300">
+              <button
+                onClick={onClickHomeHandler}
+                className="hover:text-gray-300"
+              >
                 Home
-              </a>
+              </button>
             </li>
             {user ? (
               <li>
-                <a onClick={logoutHandler} className="hover:text-gray-300">
+                <button onClick={logoutHandler} className="hover:text-gray-300">
                   Logout
-                </a>
+                </button>
               </li>
             ) : (
               <li>
-                <a onClick={loginHandler} className="hover:text-gray-300">
+                <button onClick={loginHandler} className="hover:text-gray-300">
                   Login
-                </a>
+                </button>
               </li>
             )}
           </ul>
