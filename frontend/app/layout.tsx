@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './styles/globals.css';
 import Header from './components/layout/Header';
 import { AuthProvider } from './context/AuthProvider';
+import Spacer from './components/layout/Spacer';
 
 export const metadata: Metadata = {
   title: '推しプロジェクト！',
@@ -17,10 +18,12 @@ export default function RootLayout({
     <html lang="ja">
       <body className={`antialiased`}>
         <AuthProvider>
-          <div className="font-MPlusRounded1c min-h-screen sm:max-w-sm sm:mx-auto border border-gray-300">
-            <Header />
-            {children}
-          </div>
+          <Spacer>
+            <div className="flex flex-col h-full w-full font-MPlusRounded1cn border border-gray-300">
+              <Header />
+              {children}
+            </div>
+          </Spacer>
         </AuthProvider>
       </body>
     </html>

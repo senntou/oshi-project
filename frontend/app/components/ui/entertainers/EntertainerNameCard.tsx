@@ -7,7 +7,7 @@ type NameCardProps = {
 
 const EntertainerNameCard = ({ children }: NameCardProps) => {
   return (
-    <div className="flex justify-between w-full p-5 border border-gray-200">
+    <div className="flex h-20 justify-between w-full p-5 border border-gray-200">
       <div className="flex">
         <div
           className="rounded-lg bg-pink-200 p-2 mr-3 flex items-center justify-center"

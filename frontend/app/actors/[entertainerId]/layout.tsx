@@ -6,9 +6,9 @@ const EntertainerLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div>
+    <div className="flex flex-col h-full w-full">
       <EntertainerNameCard>楠木ともり</EntertainerNameCard>
-      <div>{children}</div>
+      {children}
     </div>
   );
 };

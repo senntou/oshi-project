@@ -36,7 +36,7 @@ const ContentCategory = (props: Props) => {
   }, [isOpen]);
 
   return (
-    <div className="border border-gray-200 rounded-lg shadow-md overflow-hidden">
+    <div className="border border-gray-200 rounded-lg shadow-md">
       <button
         type="button"
         onClick={onClick}

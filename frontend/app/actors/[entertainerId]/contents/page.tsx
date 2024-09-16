@@ -1,4 +1,5 @@
 import ContentCatergoryList from '@/app/components/ui/entertainers/ContentCategoryList';
+import { IoAddOutline } from 'react-icons/io5';
 
 // TODO: APIからデータを取得する
 const entertainer = {
@@ -49,7 +50,21 @@ const entertainer = {
 
 const EntertainerPage = () => {
   return (
-    <ContentCatergoryList contentCategories={entertainer.contentCategories} />
+    <div className="flex h-full max-h-full w-full justify-center">
+      <div className="relative h-full w-full">
+        <div className="absolute top-0 bottom-0 left-0 right-0 overflow-scroll">
+          <ContentCatergoryList
+            contentCategories={entertainer.contentCategories}
+          />
+        </div>
+      </div>
+
+      <div className="relative">
+        <button className="absolute bottom-5 right-5 bg-blue-500 text-2xl text-white rounded-full p-2 shadow">
+          <IoAddOutline />
+        </button>
+      </div>
+    </div>
   );
 };
 
