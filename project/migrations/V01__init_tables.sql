@@ -60,7 +60,7 @@ CREATE TABLE appearing_content (
     name VARCHAR NOT NULL,
     category VARCHAR(10) CHECK (category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     description TEXT,
-    schedule_type VARCHAR(10) CHECK (schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
+    schedule_type VARCHAR(10) CHECK (schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'HALF_MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
     schedule_start_date TIMESTAMP,
     schedule_end_date TIMESTAMP,
     deleted_at TIMESTAMP,
@@ -114,7 +114,7 @@ CREATE TABLE update_appearing_content (
     content_name VARCHAR NOT NULL,
     content_category VARCHAR(10) CHECK (content_category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     content_description TEXT,
-    content_schedule_type VARCHAR(10) CHECK (content_schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
+    content_schedule_type VARCHAR(10) CHECK (content_schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'HALF_MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
     content_schedule_start_date TIMESTAMP,
     content_schedule_end_date TIMESTAMP,
 

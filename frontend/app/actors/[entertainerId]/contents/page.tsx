@@ -60,7 +60,7 @@ const EntertainerPage = () => {
       </div>
 
       <div className="relative">
-        <button className="absolute bottom-5 right-5 bg-blue-500 text-2xl text-white rounded-full p-2 shadow">
+        <button className="absolute bottom-5 right-5 bg-basecolor text-2xl text-white rounded-full p-2 shadow">
           <IoAddOutline />
         </button>
       </div>
