@@ -1,20 +1,19 @@
 .PHONY: all docker frontend backend
 
-DOCKER_DIR := project/docker
 SEED_DIR := project/seed
 MIGRATE_DIR := project/migrations
 
 compose/up:
-	cd $(DOCKER_DIR) && docker compose up -d
+	docker compose up -d
 
 compose/down:
-	cd $(DOCKER_DIR) && docker compose down	
+	docker compose down	
 
 migrate:
-	cd $(DOCKER_DIR) && docker compose run --rm migrate
+	docker compose run --rm migrate
 	
 psql:
-	cd $(DOCKER_DIR) && docker compose exec postgres psql mydb
+	docker compose exec postgres psql mydb
 
 seed:
 	@echo "Running seed files..."
