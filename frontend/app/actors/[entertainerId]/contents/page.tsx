@@ -1,4 +1,7 @@
+'use client';
 import ContentCatergoryList from '@/app/components/ui/entertainers/ContentCategoryList';
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { IoAddOutline } from 'react-icons/io5';
 
 // TODO: APIからデータを取得する
@@ -49,10 +52,16 @@ const entertainer = {
 };
 
 const EntertainerPage = () => {
+  const router = useRouter();
+  const { entertainerId } = useParams();
+  const onClickNewButton = () => {
+    router.push(`/actors/${entertainerId}/contents/new`);
+  };
+
   return (
     <div className="flex h-full max-h-full w-full justify-center">
       <div className="relative h-full w-full">
-        <div className="absolute top-0 bottom-0 left-0 right-0 overflow-scroll">
+        <div className="absolute top-0 bottom-0 left-0 right-0 overflow-y-scroll no-scrollbar">
           <ContentCatergoryList
             contentCategories={entertainer.contentCategories}
           />
@@ -60,7 +69,10 @@ const EntertainerPage = () => {
       </div>
 
       <div className="relative">
-        <button className="absolute bottom-5 right-5 bg-basecolor text-2xl text-white rounded-full p-2 shadow">
+        <button
+          onClick={onClickNewButton}
+          className="absolute bottom-5 right-5 bg-basecolor text-2xl text-white rounded-full p-2 shadow"
+        >
           <IoAddOutline />
         </button>
       </div>

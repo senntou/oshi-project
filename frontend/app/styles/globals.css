@@ -4,3 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scroll bar */
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+
+h1, h2, h3, h4, h5, h6, p, a, span, div, li, ul, ol, dl, dt, dd, table, th, td, input, textarea, button {
+  user-select: none; /* テキスト選択を禁止 */
+  cursor: default;   /* カーソルを通常に */
+}
