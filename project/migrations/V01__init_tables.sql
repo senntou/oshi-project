@@ -57,7 +57,7 @@ EXECUTE PROCEDURE update_timestamp();
 CREATE TABLE appearing_content (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     entertainer_id UUID NOT NULL,
-    name VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
     category VARCHAR(10) CHECK (category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     description TEXT,
     schedule_type VARCHAR(10) CHECK (schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'HALF_MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
@@ -111,7 +111,7 @@ CREATE TABLE update_appearing_content (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     content_id UUID NOT NULL,
-    content_name VARCHAR NOT NULL,
+    content_title VARCHAR NOT NULL,
     content_category VARCHAR(10) CHECK (content_category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     content_description TEXT,
     content_schedule_type VARCHAR(10) CHECK (content_schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'HALF_MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
