@@ -15,6 +15,9 @@ migrate:
 psql:
 	docker compose exec postgres psql mydb
 
+gen:
+	oapi-codegen -config ./project/api/cfg.yaml ./project/api/openapi.yaml
+
 seed:
 	@echo "Running seed files..."
 	@for file in $(SEED_DIR)/*.sql; do \
