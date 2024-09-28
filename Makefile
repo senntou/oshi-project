@@ -30,3 +30,6 @@ run/frontend:
 
 run/backend:
 	cd backend && go run main.go
+
+run/admin:
+	cd admin && npm run dev
