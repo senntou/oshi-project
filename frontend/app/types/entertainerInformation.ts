@@ -1,6 +1,6 @@
 import { ContentCategories } from './contents';
 
-export type EntertainerInformationType = {
+export type ActorInforationType = {
   name: string;
   contentCategories: ContentCategories;
 };

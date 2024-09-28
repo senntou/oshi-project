@@ -5,7 +5,7 @@ type NameCardProps = {
   children: string;
 };
 
-const EntertainerNameCard = ({ children }: NameCardProps) => {
+const ActorNameCard = ({ children }: NameCardProps) => {
   return (
     <div className="flex h-20 justify-between w-full p-5 border border-gray-200">
       <div className="flex">
@@ -23,4 +23,4 @@ const EntertainerNameCard = ({ children }: NameCardProps) => {
   );
 };
 
-export default EntertainerNameCard;
+export default ActorNameCard;

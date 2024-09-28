@@ -1,12 +1,12 @@
 'use client';
 import ContentCatergoryList from '@/app/components/ui/entertainers/ContentCategoryList';
-import EntertainerNameCard from '@/app/components/ui/entertainers/EntertainerNameCard';
+import ActorNameCard from '@/app/components/ui/entertainers/EntertainerNameCard';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { RiStickyNoteAddLine } from 'react-icons/ri';
 
 // TODO: APIからデータを取得する
-const entertainer = {
+const actor = {
   name: '楠木ともり',
   contentCategories: {
     anime: [
@@ -52,22 +52,20 @@ const entertainer = {
   },
 };
 
-const EntertainerPage = () => {
+const ActorPage = () => {
   const router = useRouter();
-  const { entertainerId } = useParams();
+  const { actorId } = useParams();
   const onClickNewButton = () => {
-    router.push(`/actors/${entertainerId}/contents/new`);
+    router.push(`/actors/${actorId}/contents/new`);
   };
 
   return (
     <div className="flex flex-col h-full w-full">
-      <EntertainerNameCard>{entertainer.name}</EntertainerNameCard>
+      <ActorNameCard>{actor.name}</ActorNameCard>
       <div className="flex h-full max-h-full w-full justify-center">
         <div className="relative h-full w-full">
           <div className="absolute top-0 bottom-0 left-0 right-0 overflow-y-scroll no-scrollbar">
-            <ContentCatergoryList
-              contentCategories={entertainer.contentCategories}
-            />
+            <ContentCatergoryList contentCategories={actor.contentCategories} />
           </div>
         </div>
 
@@ -84,4 +82,4 @@ const EntertainerPage = () => {
   );
 };
 
-export default EntertainerPage;
+export default ActorPage;
