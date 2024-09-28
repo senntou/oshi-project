@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>演者一覧</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1>演者一覧</h1>
+    <ul>
+      <% for (var i = 0; i < actors.length; i++) { %>
+      <li><%= actors[i].name %></li>
+      <% } %>
+    </ul>
+  </body>
+</html>
