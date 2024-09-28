@@ -1,10 +1,99 @@
 openapi: 3.0.0
+
 info:
   title: Go API
   description: local go api
   version: 1.0.0
+
 servers:
   - url: http://localhost:5000
+
+components:
+  schemas:
+    HealthCheckResponse:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    AnimeContent:
+      type: object
+      properties:
+        contentId:
+          type: string
+        title:
+          type: string
+        period:
+          type: string
+        description:
+          type: string
+      required:
+        - contentId
+        - title
+        - period
+        - description
+
+    RadioContent:
+      type: object
+      properties:
+        contentId:
+          type: string
+        title:
+          type: string
+        schedule_type:
+          type: string
+        schedule_day:
+          type: string
+        description:
+          type: string
+      required:
+        - contentId
+        - title
+        - period
+        - description
+
+    LiveContent:
+      type: object
+      properties:
+        contentId:
+          type: string
+        title:
+          type: string
+        date:
+          type: string
+        description:
+          type: string
+      required:
+        - contentId
+        - title
+        - date
+        - description
+
+    ActorContentsResponse:
+      type: object
+      properties:
+        actorId:
+          type: string
+        actorName:
+          type: string
+        contents:
+          type: object
+          properties:
+            anime:
+              type: array
+              items:
+                $ref: '#/components/schemas/AnimeContent'
+            radio:
+              type: array
+              items:
+                $ref: '#/components/schemas/RadioContent'
+            live:
+              type: array
+              items:
+                $ref: '#/components/schemas/LiveContent'
+
 paths:
   /healthcheck:
     get:
@@ -16,12 +105,14 @@ paths:
                 $ref: '#/components/schemas/HealthCheckResponse'
           description: 情報の取得成功
       summary: ヘルスチェック用エンドポイント
-components:
-  schemas:
-    HealthCheckResponse:
-      type: object
-      properties:
-        status:
-          type: string
-      required:
-        - status
+
+  /actors/{actorId}/contents:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorContentsResponse'
+          description: 演者のコンテンツ一覧の取得成功
+      summary: 演者のコンテンツ一覧を取得するエンドポイント

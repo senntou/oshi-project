@@ -37,7 +37,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 
 -- Entertainer table
-CREATE TABLE entertainer (
+CREATE TABLE actor (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR NOT NULL,
     gender VARCHAR(10) CHECK (gender IN ('MALE', 'FEMALE')),
@@ -48,15 +48,15 @@ CREATE TABLE entertainer (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (agency_id) REFERENCES agency(id) 
 );
-CREATE TRIGGER update_entertainer_timestamp
-BEFORE UPDATE ON entertainer
+CREATE TRIGGER update_actor_timestamp
+BEFORE UPDATE ON actor
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 
 -- Appearing Content table
 CREATE TABLE appearing_content (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    entertainer_id UUID NOT NULL,
+    actor_id UUID NOT NULL,
     title VARCHAR NOT NULL,
     category VARCHAR(10) CHECK (category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     description TEXT,
@@ -68,7 +68,7 @@ CREATE TABLE appearing_content (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (entertainer_id) REFERENCES entertainer(id) ,
+    FOREIGN KEY (actor_id) REFERENCES actor(id) ,
     FOREIGN KEY (deleted_by) REFERENCES "user"(id)
 );
 CREATE TRIGGER update_appearing_content_timestamp
@@ -76,7 +76,7 @@ BEFORE UPDATE ON appearing_content
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 -- Index
-CREATE INDEX appearing_content_entertainer_id_index ON appearing_content(entertainer_id);
+CREATE INDEX appearing_content_actor_id_index ON appearing_content(actor_id);
 -- View
 CREATE VIEW active_appearing_content AS
 SELECT * FROM appearing_content
@@ -146,20 +146,20 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 
 -- Update Entertainer table
-CREATE TABLE update_entertainer (
+CREATE TABLE update_actor (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
-    entertainer_id UUID NOT NULL,
-    entertainer_name VARCHAR NOT NULL,
-    entertainer_gender VARCHAR(10) CHECK (entertainer_gender IN ('MALE', 'FEMALE')),
-    entertainer_note TEXT,  
+    actor_id UUID NOT NULL,
+    actor_name VARCHAR NOT NULL,
+    actor_gender VARCHAR(10) CHECK (actor_gender IN ('MALE', 'FEMALE')),
+    actor_note TEXT,  
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES "user"(id),
-    FOREIGN KEY (entertainer_id) REFERENCES entertainer(id)
+    FOREIGN KEY (actor_id) REFERENCES actor(id)
 );
-CREATE TRIGGER update_update_entertainer_timestamp
-BEFORE UPDATE ON update_entertainer
+CREATE TRIGGER update_update_actor_timestamp
+BEFORE UPDATE ON update_actor
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
