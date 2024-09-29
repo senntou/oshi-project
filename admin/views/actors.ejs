@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>演者一覧</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <h1>演者一覧</h1>
-    <ul>
-      <% for (var i = 0; i < actors.length; i++) { %>
-      <li><%= actors[i].name %></li>
-      <% } %>
-    </ul>
-  </body>
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <ul>
+    <% for (var i = 0; i < actors.length; i++) { %>
+    <li>
+      <%= actors[i].name %>
+      :
+      <%= actors[i].id %>
+      :
+      <%= actors[i].agency_id %>
+    </li>
+    <% } %>
+  </ul>
+</body>
+
 </html>

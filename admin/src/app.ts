@@ -6,6 +6,7 @@ import logger from 'morgan';
 
 import indexRouter from './routes/index';
 import actorsRouter from './routes/actors';
+import agenciesRouter from './routes/agencies';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static('public'));
 
 app.use('/', indexRouter);
 app.use('/actors', actorsRouter);
+app.use('/agencies', agenciesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
