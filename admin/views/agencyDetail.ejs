@@ -6,19 +6,16 @@
   </head>
   <body>
     <h1><%= title %></h1>
+
+    <h2>声優一覧</h2>
     <ul>
-      <% for (var i = 0; i < agencies.length; i++) { %>
-      <li>
-        <a href="./agencies/<%= agencies[i].id %>">
-          <%= agencies[i].name %>
-        </a>
-        :
-        <%= agencies[i].id %>
-      </li>
+      <% for (var i = 0; i < actors.length; i++) { %>
+      <li> </li>
       <% } %>
     </ul>
 
-    <form action="/agencies" method="post">
+    <h2>フォーム</h2>
+    <form action="/agencyDetail" method="post">
       <input type="text" name="name" placeholder="name" />
       <button type="submit">submit</button>
     </form>
