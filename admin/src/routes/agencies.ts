@@ -31,8 +31,12 @@ router.post('/', async function (req: Request, res: Response, next: NextFunction
 
 router.delete('/:id', async function (req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
-  await deleteAgency(req.params.id);
-  res.redirect('/agencies');
+  try {
+    await deleteAgency(req.params.id);
+    res.redirect('/agencies');
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get('/:id/actors', async function (req: Request, res: Response, next: NextFunction) {
