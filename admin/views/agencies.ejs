@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <ul>
-      <% for (var i = 0; i < agencies.length; i++) { %>
-      <li>
-        <a href="./agencies/<%= agencies[i].id %>">
-          <%= agencies[i].name %>
-        </a>
-        :
-        <%= agencies[i].id %>
-      </li>
-      <% } %>
-    </ul>
 
-    <form action="/agencies" method="post">
-      <input type="text" name="name" placeholder="name" />
-      <button type="submit">submit</button>
-    </form>
-  </body>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <ul>
+    <% for (var i = 0; i < agencies.length; i++) { %>
+    <li>
+      <a href="/agencies/<%= agencies[i].id %>/actors">
+        <%= agencies[i].name %>
+      </a>
+      :
+      <%= agencies[i].id %>
+    </li>
+    <% } %>
+  </ul>
+
+  <form action="/agencies" method="post">
+    <input type="text" name="name" placeholder="name" />
+    <button type="submit">submit</button>
+  </form>
+</body>
+
 </html>

@@ -1,23 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <h1><%= title %></h1>
 
-    <h2>声優一覧</h2>
-    <ul>
-      <% for (var i = 0; i < actors.length; i++) { %>
-      <li> </li>
-      <% } %>
-    </ul>
+<head>
+  <title><%= agency.name %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
 
-    <h2>フォーム</h2>
-    <form action="/agencyDetail" method="post">
-      <input type="text" name="name" placeholder="name" />
-      <button type="submit">submit</button>
-    </form>
-  </body>
+<body>
+  <h1><%= agency.name %></h1>
+  <a><%= agency.id %></a>
+  <button onclick="deleteAgency()">削除</button>
+
+  <h2>声優一覧</h2>
+  <ul>
+    <% for (var i = 0; i < actors.length; i++) { %>
+    <li><%= actors[i].name %></li>
+    <% } %>
+  </ul>
+
+  <h2>声優追加</h2>
+  <form action="/actors" method="post" style="display: flex; flex-direction: column; width: 30vw;">
+
+    <input type="hidden" name="agencyId" value="<%= agency.id %>" />
+
+    <label for="name">名前</label>
+    <input type="text" name="name" placeholder="name" />
+
+    <label for="gender">性別</label>
+    <div>
+      <input type="radio" id="male" name="gender" value="MALE">
+      <label for="male">男性</label>
+    </div>
+    <div>
+      <input type="radio" id="female" name="gender" value="FEMALE">
+      <label for="female">女性</label>
+    </div>
+    <div>
+      <input type="radio" id="other" name="gender" value="OTHER">
+      <label for="other">その他</label>
+    </div>
+    <button type="submit">submit</button>
+  </form>
+
+
+  <script>
+    function deleteAgency() {
+      fetch(`./`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(response => {
+          window.location.href = '/agencies';
+        })
+        .catch(error => console.error("エラー:", error));
+    }
+  </script>
+</body>
+
 </html>

@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import getClient from '../db/dbClient';
 import express from 'express';
+import {
+  createAgency,
+  deleteAgency,
+  getActorsByAgencyId,
+  getAgencyById,
+} from '../repositories/agencies';
 
 const router = express.Router();
 
@@ -17,39 +23,22 @@ router.get('/', async function (_req: Request, res: Response, next: NextFunction
   }
 });
 
-const postQuery = 'INSERT INTO agency(name) VALUES($1)';
-
 router.post('/', async function (req: Request, res: Response, next: NextFunction) {
-  const client = await getClient();
-  try {
-    const { name } = req.body;
-    await client.query(postQuery, [name]);
-    res.redirect('/agencies');
-  } catch (err) {
-    next(err);
-  }
+  const { name } = req.body;
+  await createAgency(name);
+  res.redirect('/agencies');
 });
 
-router.get('/:id', async function (req: Request, res: Response, next: NextFunction) {
-  const query = `
-  SELECT
-    actor.id,
-    actor.name
-  FROM
-    actor
-    JOIN agency ON actor.agency_id = agency.id
-  WHERE
-    agency.id = $1
-  `;
+router.delete('/:id', async function (req: Request, res: Response, next: NextFunction) {
+  const { id } = req.params;
+  await deleteAgency(req.params.id);
+  res.redirect('/agencies');
+});
 
-  const client = await getClient();
-  try {
-    const result = await client.query(query, [req.params.id]);
-    const actors = result.rows;
-    res.render('agencyDetail', { title: '事務所詳細', actors });
-  } catch (err) {
-    next(err);
-  }
+router.get('/:id/actors', async function (req: Request, res: Response, next: NextFunction) {
+  const actors = await getActorsByAgencyId(req.params.id);
+  const agency = await getAgencyById(req.params.id);
+  res.render('agencyDetail', { agency, actors });
 });
 
 export default router;

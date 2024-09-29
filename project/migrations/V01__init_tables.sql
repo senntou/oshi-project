@@ -3,8 +3,8 @@ CREATE EXTENSION if not exists pgcrypto;
 CREATE OR REPLACE FUNCTION update_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
-  NEW.updated_at = NOW();
-  RETURN NEW;
+    NEW.updated_at = NOW();
+    RETURN NEW;
 END;
 $$ language 'plpgsql';
 
@@ -40,8 +40,8 @@ EXECUTE PROCEDURE update_timestamp();
 CREATE TABLE actor (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR NOT NULL,
-    gender VARCHAR(10) CHECK (gender IN ('MALE', 'FEMALE')),
-    agency_id UUID,
+    gender VARCHAR(10) NOT NULL CHECK (gender IN ('MALE', 'FEMALE', 'OTHER')),
+    agency_id UUID NOT NULL,
     note TEXT,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

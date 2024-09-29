@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import getClient from '../db/dbClient';
 import express from 'express';
+import { create } from 'domain';
+import { createActor } from '../repositories/actors';
 
 const router = express.Router();
 
@@ -15,6 +17,12 @@ router.get('/', async function (_req: Request, res: Response, next: NextFunction
   } catch (err) {
     next(err);
   }
+});
+
+router.post('/', async function (req: Request, res: Response, next: NextFunction) {
+  const { name, agencyId, gender } = req.body;
+  await createActor(name, agencyId, gender);
+  res.redirect(`/agencies/${agencyId}/actors`);
 });
 
 export default router;
