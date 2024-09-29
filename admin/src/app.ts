@@ -1,37 +1,27 @@
-import createError from "http-errors";
-import express, { Request, Response, NextFunction } from "express";
-import path from "path";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
+import createError from 'http-errors';
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
-import indexRouter from "./routes/index";
-import actorsRouter from "./routes/actors";
+import indexRouter from './routes/index';
+import actorsRouter from './routes/actors';
 
 const app = express();
 
-const Client = require("pg").Client;
-const client = new Client({
-  user: "root",
-  host: "localhost",
-  database: "mydb",
-  password: "password",
-  port: 5432,
-});
-export { client };
-
 // view engine setup
-app.set("views", path.join("views")); //__dirNameと書いてある箇所を除く！
-app.set("view engine", "ejs");
+app.set('views', path.join('views')); //__dirNameと書いてある箇所を除く！
+app.set('view engine', 'ejs');
 
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join("public"))); //__dirNameと書いてある箇所を除く！
-app.use(express.static("public"));
+app.use(express.static(path.join('public'))); //__dirNameと書いてある箇所を除く！
+app.use(express.static('public'));
 
-app.use("/", indexRouter);
-app.use("/actors", actorsRouter);
+app.use('/', indexRouter);
+app.use('/actors', actorsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -47,19 +37,14 @@ interface ErrorWithStatus extends Error {
 // error handler
 // ↓に関しては、このままだと全引数ともに暗黙的Anyとなってしまう。
 // req,res,nextに関しては@types/expressの型を使えるが、errに関しては型拡張の必要あり！(上で定義したinterfaceを用いる。)
-app.use(function (
-  err: ErrorWithStatus,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+app.use(function (err: ErrorWithStatus, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render('error');
 });
 
 export default app;
