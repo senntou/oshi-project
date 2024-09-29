@@ -8,13 +8,13 @@ const query = 'SELECT * FROM actor';
 
 router.get('/', async function (_req: Request, res: Response, next: NextFunction) {
   const client = await getClient();
-  client
-    .query(query)
-    .then((result: { rows: any[] }) => {
-      const actors = result.rows;
-      res.render('actors', { actors });
-    })
-    .catch((err: any) => next(err));
+  try {
+    const result = await client.query(query);
+    const actors = result.rows;
+    res.render('actors', { title: '声優一覧', actors });
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;
