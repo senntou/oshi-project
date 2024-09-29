@@ -15,6 +15,12 @@ migrate:
 psql:
 	docker compose exec postgres psql mydb
 
+exec:
+	docker compose exec postgres sh
+
+save-seed:
+	sh ./saveseed.sh
+
 gen:
 	oapi-codegen -config ./project/api/cfg.yaml ./project/api/openapi.yaml
 

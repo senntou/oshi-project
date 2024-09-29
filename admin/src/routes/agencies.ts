@@ -6,6 +6,7 @@ import {
   deleteAgency,
   getActorsByAgencyId,
   getAgencyById,
+  updateAgency,
 } from '../repositories/agencies';
 
 const router = express.Router();
@@ -24,15 +25,30 @@ router.get('/', async function (_req: Request, res: Response, next: NextFunction
 });
 
 router.post('/', async function (req: Request, res: Response, next: NextFunction) {
-  const { name } = req.body;
-  await createAgency(name);
-  res.redirect('/agencies');
+  try {
+    const { name } = req.body;
+    await createAgency(name);
+    res.redirect('/agencies');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id', async function (req: Request, res: Response, next: NextFunction) {
+  try {
+    const { name } = req.body;
+    const { id } = req.params;
+    await updateAgency(name, id);
+    res.redirect(`/agencies`);
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.delete('/:id', async function (req: Request, res: Response, next: NextFunction) {
   const { id } = req.params;
   try {
-    await deleteAgency(req.params.id);
+    await deleteAgency(id);
     res.redirect('/agencies');
   } catch (err) {
     next(err);
@@ -40,9 +56,13 @@ router.delete('/:id', async function (req: Request, res: Response, next: NextFun
 });
 
 router.get('/:id/actors', async function (req: Request, res: Response, next: NextFunction) {
-  const actors = await getActorsByAgencyId(req.params.id);
-  const agency = await getAgencyById(req.params.id);
-  res.render('agencyDetail', { agency, actors });
+  try {
+    const actors = await getActorsByAgencyId(req.params.id);
+    const agency = await getAgencyById(req.params.id);
+    res.render('agencyDetail', { agency, actors });
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;

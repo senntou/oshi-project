@@ -40,6 +40,11 @@ EXECUTE PROCEDURE update_timestamp();
 CREATE TABLE actor (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR NOT NULL,
+    name_kana VARCHAR NOT NULL,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR,
+    first_name_kana VARCHAR NOT NULL,
+    last_name_kana VARCHAR,
     gender VARCHAR(10) NOT NULL CHECK (gender IN ('MALE', 'FEMALE', 'OTHER')),
     agency_id UUID NOT NULL,
     note TEXT,

@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import getClient from '../db/dbClient';
 import express from 'express';
-import { create } from 'domain';
-import { createActor } from '../repositories/actors';
+import { createActor, deleteActor, updateActor } from '../repositories/actors';
 
 const router = express.Router();
 
@@ -20,9 +19,49 @@ router.get('/', async function (_req: Request, res: Response, next: NextFunction
 });
 
 router.post('/', async function (req: Request, res: Response, next: NextFunction) {
-  const { name, agencyId, gender } = req.body;
-  await createActor(name, agencyId, gender);
+  const { lastName, firstName, lastNameKana, firstNameKana, agencyId, gender } = req.body;
+  const name = `${lastName}${firstName}`;
+  const nameKana = `${lastNameKana}${firstNameKana}`;
+
+  if (!firstName || !firstNameKana) {
+    res.status(400).send('名は必須です');
+    return;
+  }
+  await createActor(
+    name,
+    nameKana,
+    firstName,
+    lastName,
+    firstNameKana,
+    lastNameKana,
+    agencyId,
+    gender
+  );
   res.redirect(`/agencies/${agencyId}/actors`);
+});
+
+router.put('/:id', async function (req: Request, res: Response, next: NextFunction) {
+  const id = req.params.id;
+  const { firstName, lastName, firstNameKana, lastNameKana } = req.body;
+  const name = `${lastName}${firstName}`;
+  const nameKana = `${lastNameKana}${firstNameKana}`;
+
+  try {
+    await updateActor(id, name, nameKana, firstName, lastName, firstNameKana, lastNameKana);
+    res.redirect('/actors');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete('/:id', async function (req: Request, res: Response, next: NextFunction) {
+  const id = req.params.id;
+  try {
+    await deleteActor(id);
+    res.redirect('/actors');
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;
