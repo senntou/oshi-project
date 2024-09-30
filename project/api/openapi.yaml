@@ -18,6 +18,17 @@ components:
       required:
         - status
 
+    Actor:
+      type: object
+      properties:
+        actorId:
+          type: string
+        actorName:
+          type: string
+      required:
+        - actorId
+        - actorName
+
     AnimeContent:
       type: object
       properties:
@@ -71,6 +82,36 @@ components:
         - date
         - description
 
+    ContentList:
+      type: object
+      properties:
+        anime:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnimeContent'
+        radio:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioContent'
+        live:
+          type: array
+          items:
+            $ref: '#/components/schemas/LiveContent'
+      required:
+        - anime
+        - radio
+        - live
+
+    ActorsResponse:
+      type: object
+      properties:
+        actors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
+      required:
+          - actors
+
     ActorContentsResponse:
       type: object
       properties:
@@ -79,20 +120,11 @@ components:
         actorName:
           type: string
         contents:
-          type: object
-          properties:
-            anime:
-              type: array
-              items:
-                $ref: '#/components/schemas/AnimeContent'
-            radio:
-              type: array
-              items:
-                $ref: '#/components/schemas/RadioContent'
-            live:
-              type: array
-              items:
-                $ref: '#/components/schemas/LiveContent'
+          $ref: '#/components/schemas/ContentList'
+      required:
+        - actorId
+        - actorName
+        - contents
 
 paths:
   /healthcheck:
@@ -106,8 +138,24 @@ paths:
           description: 情報の取得成功
       summary: ヘルスチェック用エンドポイント
 
+  /actors:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorsResponse'
+          description: 演者一覧の取得成功
+
   /actors/{actorId}/contents:
     get:
+      parameters:
+        - name: actorId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           content:

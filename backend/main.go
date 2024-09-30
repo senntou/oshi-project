@@ -21,6 +21,8 @@ func main() {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
+	e.GET("/actors", controller.GetActors)
+
 	e.GET("/healthcheck", controller.GetHealthCheck)
 
 	e.Logger.Fatal(e.Start(":5000"))
