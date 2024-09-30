@@ -26,8 +26,19 @@ components:
         name:
           type: string
       required:
-        - actorId
-        - actorName
+        - id
+        - name
+
+    SpecificDateEvent:
+      type : object
+      properties:
+        date:
+          type: string
+        customTitle:
+          type: string
+      required:
+        - date
+        - customTitle
 
     AnimeContent:
       type: object
@@ -36,15 +47,18 @@ components:
           type: string
         title:
           type: string
-        period:
-          type: string
         description:
+          type: string
+        year:
+          type: integer
+        season:
           type: string
       required:
         - contentId
         - title
-        - period
         - description
+        - year
+        - season
 
     RadioContent:
       type: object
@@ -53,17 +67,21 @@ components:
           type: string
         title:
           type: string
-        schedule_type:
-          type: string
-        schedule_day:
-          type: string
         description:
+          type: string
+        scheduleType:
+          type: string
+        startDate:
+          type: string
+        endDate:
           type: string
       required:
         - contentId
         - title
-        - period
         - description
+        - scheduleType
+        - startDate
+        - endDate
 
     LiveContent:
       type: object
@@ -72,15 +90,17 @@ components:
           type: string
         title:
           type: string
-        date:
-          type: string
         description:
           type: string
+        specificDateEvent:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecificDateEvent'
       required:
         - contentId
         - title
-        - date
         - description
+        - specificDateEvent
 
     ContentList:
       type: object
@@ -120,8 +140,7 @@ components:
         contents:
           $ref: '#/components/schemas/ContentList'
       required:
-        - id
-        - name
+        - Actor
         - contents
 
 paths:
@@ -136,7 +155,7 @@ paths:
           description: 情報の取得成功
       summary: ヘルスチェック用エンドポイント
 
-  /actors:
+  /v1/actors:
     get:
       responses:
         "200":
@@ -146,7 +165,7 @@ paths:
                 $ref: '#/components/schemas/ActorsResponse'
           description: 演者一覧の取得成功
 
-  /actors/{actorId}/contents:
+  /v1/actors/{actorId}/contents:
     get:
       parameters:
         - name: actorId

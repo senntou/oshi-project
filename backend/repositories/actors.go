@@ -4,7 +4,30 @@ import (
 	"backend/openapi"
 )
 
-func GetActors() ([]openapi.Actor, error) {
+func GetActorName(actorId string) (string, error) {
+
+	getActorQuery := `
+	SELECT name
+	FROM actor
+	WHERE id = $1
+	`
+
+	db, err := GetDB()
+	if err != nil {
+		return "", err
+	}
+	row := db.QueryRow(getActorQuery, actorId)
+
+	var actorName string
+	err = row.Scan(&actorName)
+	if err != nil {
+		return "", err
+	}
+
+	return actorName, nil
+}
+
+func GetAllActors() ([]openapi.Actor, error) {
 
 	getActorsQuery := `
 	SELECT id, name
@@ -19,6 +42,7 @@ func GetActors() ([]openapi.Actor, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	var actors = []openapi.Actor{}
 

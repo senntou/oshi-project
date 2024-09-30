@@ -69,8 +69,8 @@ CREATE TABLE appearing_content (
     place VARCHAR,
     description TEXT,
     schedule_type VARCHAR(10) NOT NULL CHECK (schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'BIWEEKLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
-    start_date TIMESTAMP,
-    end_date TIMESTAMP,
+    start_date Date,
+    end_date Date,
     "year" INTEGER,
     season VARCHAR(10) CHECK (season IN ('SPRING', 'SUMMER', 'AUTUMN', 'WINTER')),
 
@@ -86,21 +86,22 @@ EXECUTE PROCEDURE update_timestamp();
 CREATE INDEX appearing_content_actor_id_index ON appearing_content(actor_id);
 
 -- Content Date table
-CREATE TABLE content_date (
+CREATE TABLE content_specific_date (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     appearing_content_id UUID NOT NULL,
-    content_date TIMESTAMP NOT NULL,
+    content_date Date NOT NULL,
+    content_custom_title VARCHAR NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (appearing_content_id) REFERENCES appearing_content(id)
 );
-CREATE TRIGGER update_content_date_timestamp
-BEFORE UPDATE ON content_date
+CREATE TRIGGER update_content_specific_date_timestamp
+BEFORE UPDATE ON content_specific_date
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 -- Index
-CREATE INDEX content_date_appearing_content_id_index ON content_date(appearing_content_id);
+CREATE INDEX content_specific_date_appearing_content_id_index ON content_specific_date(appearing_content_id);
 
 -- Update Appearing Content table
 CREATE TABLE content_action_log (
@@ -129,14 +130,15 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 
 -- Update Content Date
-CREATE TABLE content_date_action_log (
+CREATE TABLE content_specific_date_action_log (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
-    content_date_id UUID NOT NULL,
+    content_specific_date_id UUID NOT NULL,
     
     action_type VARCHAR(10) NOT NULL CHECK (action_type IN ('CREATE', 'UPDATE', 'DELETE')),
     content_id UUID NOT NULL,
-    content_date TIMESTAMP NOT NULL,
+    content_date Date NOT NULL,
+    content_custom_title VARCHAR NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

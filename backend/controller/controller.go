@@ -13,15 +13,36 @@ func GetHealthCheck(c echo.Context) error {
 	return c.JSON(http.StatusOK, response)
 }
 
-func GetActors(c echo.Context) error {
+func GetAllActors(c echo.Context) error {
 	response := openapi.ActorsResponse{Actors: []openapi.Actor{}}
 
-	results, err := repositories.GetActors()
+	results, err := repositories.GetAllActors()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
 	response.Actors = results
+
+	return c.JSON(http.StatusOK, response)
+}
+
+func GetActorContents(c echo.Context) error {
+	actorId := c.Param("actorId")
+
+	actorName, err := repositories.GetActorName(actorId)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	contents, err := repositories.GetActorContents(actorId)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	response := openapi.ActorContentsResponse{
+		Actor:    openapi.Actor{Id: actorId, Name: actorName},
+		Contents: contents,
+	}
 
 	return c.JSON(http.StatusOK, response)
 }

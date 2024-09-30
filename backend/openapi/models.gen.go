@@ -5,13 +5,13 @@ package openapi
 
 // Actor defines model for Actor.
 type Actor struct {
-	Id   *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id   string `json:"id"`
+	Name string `json:"name"`
 }
 
 // ActorContentsResponse defines model for ActorContentsResponse.
 type ActorContentsResponse struct {
-	Actor    *Actor      `json:"Actor,omitempty"`
+	Actor    Actor       `json:"Actor"`
 	Contents ContentList `json:"contents"`
 }
 
@@ -24,8 +24,9 @@ type ActorsResponse struct {
 type AnimeContent struct {
 	ContentId   string `json:"contentId"`
 	Description string `json:"description"`
-	Period      string `json:"period"`
+	Season      string `json:"season"`
 	Title       string `json:"title"`
+	Year        int    `json:"year"`
 }
 
 // ContentList defines model for ContentList.
@@ -42,17 +43,24 @@ type HealthCheckResponse struct {
 
 // LiveContent defines model for LiveContent.
 type LiveContent struct {
-	ContentId   string `json:"contentId"`
-	Date        string `json:"date"`
-	Description string `json:"description"`
-	Title       string `json:"title"`
+	ContentId         string              `json:"contentId"`
+	Description       string              `json:"description"`
+	SpecificDateEvent []SpecificDateEvent `json:"specificDateEvent"`
+	Title             string              `json:"title"`
 }
 
 // RadioContent defines model for RadioContent.
 type RadioContent struct {
-	ContentId    string  `json:"contentId"`
-	Description  string  `json:"description"`
-	ScheduleDay  *string `json:"schedule_day,omitempty"`
-	ScheduleType *string `json:"schedule_type,omitempty"`
-	Title        string  `json:"title"`
+	ContentId    string `json:"contentId"`
+	Description  string `json:"description"`
+	EndDate      string `json:"endDate"`
+	ScheduleType string `json:"scheduleType"`
+	StartDate    string `json:"startDate"`
+	Title        string `json:"title"`
+}
+
+// SpecificDateEvent defines model for SpecificDateEvent.
+type SpecificDateEvent struct {
+	CustomTitle string `json:"customTitle"`
+	Date        string `json:"date"`
 }
