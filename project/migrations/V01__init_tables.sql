@@ -47,6 +47,9 @@ CREATE TABLE actor (
     gender VARCHAR(10) NOT NULL CHECK (gender IN ('MALE', 'FEMALE', 'OTHER')),
     agency_id UUID NOT NULL,
     note TEXT,
+    sns_twitter_url VARCHAR,
+    sns_instagram_url VARCHAR,
+    sns_youtube_url VARCHAR,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -141,18 +144,21 @@ CREATE TABLE content_date_action_log (
 );
 
 -- Update Entertainer table
-CREATE TABLE update_actor_note (
+CREATE TABLE update_actor (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     actor_id UUID NOT NULL,
     actor_note TEXT,  
+    actor_sns_twitter_url VARCHAR,
+    actor_sns_instagram_url VARCHAR,
+    actor_sns_youtube_url VARCHAR,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES "user"(id),
     FOREIGN KEY (actor_id) REFERENCES actor(id)
 );
-CREATE TRIGGER update_update_actor_note_timestamp
-BEFORE UPDATE ON update_actor_note
+CREATE TRIGGER update_update_actor_timestamp
+BEFORE UPDATE ON update_actor
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();

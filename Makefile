@@ -1,4 +1,4 @@
-.PHONY: all docker frontend backend
+.PHONY: docker frontend backend
 
 include .env
 SEED_DIR := project/seed
@@ -12,6 +12,8 @@ compose/down:
 
 migrate:
 	docker compose run --rm migrate
+
+refresh: compose/down compose/up migrate 
 	
 psql:
 	docker compose exec postgres psql ${POSTGRES_DB}
