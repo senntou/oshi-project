@@ -13,7 +13,6 @@ CREATE TABLE "user" (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     firebase_id VARCHAR NOT NULL,
     name VARCHAR NOT NULL,
-    image_url VARCHAR,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
