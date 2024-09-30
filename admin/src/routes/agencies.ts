@@ -25,8 +25,12 @@ router.get('/', async function (_req: Request, res: Response, next: NextFunction
 });
 
 router.post('/', async function (req: Request, res: Response, next: NextFunction) {
+  const { name } = req.body;
+  if (!name) {
+    res.status(400).send('name is required');
+    return;
+  }
   try {
-    const { name } = req.body;
     await createAgency(name);
     res.redirect('/agencies');
   } catch (err) {
