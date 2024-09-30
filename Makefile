@@ -5,7 +5,7 @@ SEED_DIR := project/seed
 MIGRATE_DIR := project/migrations
 
 compose/up:
-	docker compose up -d
+	docker compose up -d postgres swagger-ui
 
 compose/down:
 	docker compose down	
