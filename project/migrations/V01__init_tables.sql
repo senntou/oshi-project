@@ -63,18 +63,17 @@ CREATE TABLE appearing_content (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     actor_id UUID NOT NULL,
     title VARCHAR NOT NULL,
-    category VARCHAR(10) CHECK (category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
+    category VARCHAR(10) NOT NULL CHECK (category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     description TEXT,
-    schedule_type VARCHAR(10) CHECK (schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'HALF_MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
-    schedule_start_date TIMESTAMP,
-    schedule_end_date TIMESTAMP,
-    deleted_at TIMESTAMP,
-    deleted_by UUID,
+    schedule_type VARCHAR(10) NOT NULL CHECK (schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'BIWEEKLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
+    "start_date" TIMESTAMP,
+    end_date TIMESTAMP,
+    "year" INTEGER,
+    season VARCHAR(10) CHECK (season IN ('SPRING', 'SUMMER', 'AUTUMN', 'WINTER')),
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (actor_id) REFERENCES actor(id) ,
-    FOREIGN KEY (deleted_by) REFERENCES "user"(id)
+    FOREIGN KEY (actor_id) REFERENCES actor(id)
 );
 CREATE TRIGGER update_appearing_content_timestamp
 BEFORE UPDATE ON appearing_content
@@ -82,23 +81,16 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 -- Index
 CREATE INDEX appearing_content_actor_id_index ON appearing_content(actor_id);
--- View
-CREATE VIEW active_appearing_content AS
-SELECT * FROM appearing_content
-WHERE deleted_at IS NULL;
 
 -- Content Date table
 CREATE TABLE content_date (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     appearing_content_id UUID NOT NULL,
     content_date TIMESTAMP NOT NULL,
-    deleted_at TIMESTAMP,
-    deleted_by UUID,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (appearing_content_id) REFERENCES appearing_content(id),
-    FOREIGN KEY (deleted_by) REFERENCES "user"(id)
+    FOREIGN KEY (appearing_content_id) REFERENCES appearing_content(id)
 );
 CREATE TRIGGER update_content_date_timestamp
 BEFORE UPDATE ON content_date
@@ -106,57 +98,52 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 -- Index
 CREATE INDEX content_date_appearing_content_id_index ON content_date(appearing_content_id);
--- View
-CREATE VIEW active_content_date AS
-SELECT * FROM content_date
-WHERE deleted_at IS NULL;
 
 -- Update Appearing Content table
-CREATE TABLE update_appearing_content (
+CREATE TABLE content_action_log (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     content_id UUID NOT NULL,
+    action_type VARCHAR(10) NOT NULL CHECK (action_type IN ('CREATE', 'UPDATE', 'DELETE')),
     content_title VARCHAR NOT NULL,
-    content_category VARCHAR(10) CHECK (content_category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
+    content_category VARCHAR(10) NOT NULL CHECK (content_category IN ('ANIME', 'RADIO', 'LIVE', 'EVENT', 'PROGRAM', 'ANNIVERSARY', 'OTHER')),
     content_description TEXT,
-    content_schedule_type VARCHAR(10) CHECK (content_schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'HALF_MONTHLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
-    content_schedule_start_date TIMESTAMP,
-    content_schedule_end_date TIMESTAMP,
+    content_schedule_type VARCHAR(10) NOT NULL CHECK (content_schedule_type IN ('SPECIFIC', 'WEEKLY', 'MONTHLY', 'BIWEEKLY', 'YEARLY', 'RANGE', 'IRREGULAR')),
+    content_start_date TIMESTAMP,
+    content_end_date TIMESTAMP,
+    content_year INTEGER,
+    content_season VARCHAR(10) CHECK (content_season IN ('SPRING', 'SUMMER', 'AUTUMN', 'WINTER')),
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES "user"(id),
     FOREIGN KEY (content_id) REFERENCES appearing_content(id) 
 );
-CREATE TRIGGER update_update_appearing_content_timestamp
-BEFORE UPDATE ON update_appearing_content
+CREATE TRIGGER update_content_action_log_timestamp
+BEFORE UPDATE ON content_action_log
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 
--- Create Content Date table
-CREATE TABLE create_content_date (
+-- Update Content Date
+CREATE TABLE content_date_action_log (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
+    content_date_id UUID NOT NULL,
+    
+    action_type VARCHAR(10) NOT NULL CHECK (action_type IN ('CREATE', 'UPDATE', 'DELETE')),
     content_id UUID NOT NULL,
     content_date TIMESTAMP NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES "user"(id),
-    FOREIGN KEY (content_id) REFERENCES appearing_content(id) 
+    FOREIGN KEY (user_id) REFERENCES "user"(id)
 );
-CREATE TRIGGER update_create_content_date_timestamp
-BEFORE UPDATE ON create_content_date
-FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
 
 -- Update Entertainer table
-CREATE TABLE update_actor (
+CREATE TABLE update_actor_note (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     actor_id UUID NOT NULL,
-    actor_name VARCHAR NOT NULL,
-    actor_gender VARCHAR(10) CHECK (actor_gender IN ('MALE', 'FEMALE')),
     actor_note TEXT,  
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -164,7 +151,7 @@ CREATE TABLE update_actor (
     FOREIGN KEY (user_id) REFERENCES "user"(id),
     FOREIGN KEY (actor_id) REFERENCES actor(id)
 );
-CREATE TRIGGER update_update_actor_timestamp
-BEFORE UPDATE ON update_actor
+CREATE TRIGGER update_update_actor_note_timestamp
+BEFORE UPDATE ON update_actor_note
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();

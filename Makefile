@@ -14,7 +14,7 @@ migrate:
 	docker compose run --rm migrate
 	
 psql:
-	docker compose exec postgres psql mydb
+	docker compose exec postgres psql ${POSTGRES_DB}
 
 exec:
 	docker compose exec postgres sh
