@@ -3,10 +3,13 @@ import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import dotenv from 'dotenv';
 
 import indexRouter from './routes/index';
 import actorsRouter from './routes/actors';
 import agenciesRouter from './routes/agencies';
+
+dotenv.config();
 
 const app = express();
 

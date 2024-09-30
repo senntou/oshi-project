@@ -7,11 +7,13 @@ const getClient = async (): Promise<Client> => {
     return client;
   }
 
+  const env = process.env;
+  console.log(env);
   client = new Client({
-    user: 'root',
+    user: env.POSTGRES_USER,
     host: 'localhost',
-    database: 'mydb',
-    password: 'password',
+    database: env.POSTGRES_DB,
+    password: env.POSTGRES_PASSWORD,
     port: 5432,
   });
 

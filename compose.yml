@@ -5,16 +5,16 @@ services:
     volumes:
       - ./project/seed:/home/seed
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=mydb
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - 5432:5432
 
   migrate:
     image: flyway/flyway:9.8.1
     container_name: migrate
-    command: -url=jdbc:postgresql://postgres:5432/mydb -user=root -password=password -locations=filesystem:/flyway/sql migrate
+    command: -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate
     volumes:
       - ./project/migrations:/flyway/sql
     depends_on:

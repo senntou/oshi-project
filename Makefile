@@ -1,5 +1,6 @@
 .PHONY: all docker frontend backend
 
+include .env
 SEED_DIR := project/seed
 MIGRATE_DIR := project/migrations
 
@@ -28,7 +29,7 @@ seed:
 	@echo "Running seed files..."
 	@for file in $(SEED_DIR)/*.sql; do \
 		echo "Running $$file"; \
-		docker-compose exec -T postgres psql -U root -d mydb -f home/seed/$$(basename $$file); \
+		docker-compose exec -T postgres psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f home/seed/$$(basename $$file); \
 	done
 
 run/frontend:
