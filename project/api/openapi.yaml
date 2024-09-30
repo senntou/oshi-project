@@ -21,9 +21,9 @@ components:
     Actor:
       type: object
       properties:
-        actorId:
+        id:
           type: string
-        actorName:
+        name:
           type: string
       required:
         - actorId
@@ -115,15 +115,13 @@ components:
     ActorContentsResponse:
       type: object
       properties:
-        actorId:
-          type: string
-        actorName:
-          type: string
+        Actor:
+          $ref: '#/components/schemas/Actor'
         contents:
           $ref: '#/components/schemas/ContentList'
       required:
-        - actorId
-        - actorName
+        - id
+        - name
         - contents
 
 paths:

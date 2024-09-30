@@ -5,15 +5,14 @@ package openapi
 
 // Actor defines model for Actor.
 type Actor struct {
-	ActorId   string `json:"actorId"`
-	ActorName string `json:"actorName"`
+	Id   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
 }
 
 // ActorContentsResponse defines model for ActorContentsResponse.
 type ActorContentsResponse struct {
-	ActorId   string      `json:"actorId"`
-	ActorName string      `json:"actorName"`
-	Contents  ContentList `json:"contents"`
+	Actor    *Actor      `json:"Actor,omitempty"`
+	Contents ContentList `json:"contents"`
 }
 
 // ActorsResponse defines model for ActorsResponse.
