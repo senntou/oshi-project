@@ -59,8 +59,20 @@ type RadioContent struct {
 	Title        string `json:"title"`
 }
 
+// SeasonContentRequestBody defines model for SeasonContentRequestBody.
+type SeasonContentRequestBody struct {
+	Description string `json:"description"`
+	Season      string `json:"season"`
+	Title       string `json:"title"`
+	UserId      string `json:"userId"`
+	Year        int    `json:"year"`
+}
+
 // SpecificDateEvent defines model for SpecificDateEvent.
 type SpecificDateEvent struct {
 	CustomTitle string `json:"customTitle"`
 	Date        string `json:"date"`
 }
+
+// PostV1ActorsActorIdContentsSeasonJSONRequestBody defines body for PostV1ActorsActorIdContentsSeason for application/json ContentType.
+type PostV1ActorsActorIdContentsSeasonJSONRequestBody = SeasonContentRequestBody

@@ -40,6 +40,43 @@ components:
         - date
         - customTitle
 
+    ContentResponse:
+      type: object
+      properties:
+        id: 
+          type: string
+        actorId:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        scheduleType:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        year:
+          type: integer
+        season:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - actorId
+        - title
+        - category
+        - scheduleType
+        - createdAt
+        - updatedAt
+
+
     AnimeContent:
       type: object
       properties:
@@ -55,6 +92,26 @@ components:
           type: string
       required:
         - contentId
+        - title
+        - description
+        - year
+        - season
+
+    SeasonContentRequestBody:
+      type: object
+      properties:
+        userId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        year:
+          type: integer
+        season:
+          type: string
+      required:
+        - userId
         - title
         - description
         - year
@@ -163,7 +220,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ActorsResponse'
-          description: 演者一覧の取得成功
+          description: Success
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
 
   /v1/actors/{actorId}/contents:
     get:
@@ -179,5 +240,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ActorContentsResponse'
-          description: 演者のコンテンツ一覧の取得成功
+          description: Success
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
       summary: 演者のコンテンツ一覧を取得するエンドポイント
+
+  /v1/actors/{actorId}/contents/season:
+    post:
+      parameters:
+        - name: actorId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeasonContentRequestBody'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentList'
+          description: Success
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Season型のコンテンツを作成するエンドポイント
