@@ -32,5 +32,7 @@ func main() {
 	e.GET("v1/actors", controller.GetAllActors)
 	e.GET("v1/actors/:actorId/contents", controller.GetActorContents)
 
+	e.GET("v1/users/me", controller.GetMe)
+
 	e.Logger.Fatal(e.Start(":5000"))
 }

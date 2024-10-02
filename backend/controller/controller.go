@@ -3,7 +3,9 @@ package controller
 import (
 	"backend/openapi"
 	"backend/repositories"
+	"log"
 	"net/http"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -45,4 +47,20 @@ func GetActorContents(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, response)
+}
+
+func GetMe(c echo.Context) error {
+	log.Print("GetMe")
+	authHeader := c.Request().Header.Get("Authorization")
+	if authHeader == "" {
+		return echo.NewHTTPError(http.StatusUnauthorized, "missing or invalid token")
+	}
+	token := strings.TrimPrefix(authHeader, "Bearer ")
+
+	user := openapi.User{
+		Id:   "id",
+		Name: token,
+	}
+
+	return c.JSON(http.StatusOK, openapi.UsersMeResponse{User: user})
 }
