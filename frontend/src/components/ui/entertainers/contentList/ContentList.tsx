@@ -1,4 +1,4 @@
-import { Content } from '@/src/types/contentCategory';
+import { Content } from '@/types/contentCategory';
 import ContentCard from '../contentCard/ContentCard';
 
 type Props = {

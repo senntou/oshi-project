@@ -1,6 +1,6 @@
 'use client';
-import ContentCatergoryList from '@/src/components/ui/entertainers/ContentCategoryList';
-import ActorNameCard from '@/src/components/ui/entertainers/EntertainerNameCard';
+import ContentCatergoryList from '@/components/ui/entertainers/ContentCategoryList';
+import ActorNameCard from '@/components/ui/entertainers/EntertainerNameCard';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { RiStickyNoteAddLine } from 'react-icons/ri';

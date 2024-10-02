@@ -3,8 +3,8 @@
 import { useRef, useState } from 'react';
 import InputField from './InputField';
 import TextAreaField from './TextAreaField';
-import { Schedule } from '@/src/types/schedule';
-import { Category } from '@/src/types/category';
+import { Schedule } from '@/types/schedule';
+import { Category } from '@/types/category';
 
 const CreateContentForm = () => {
   // categoryの値に応じて表示を切り替えるため、useStateを使用
