@@ -1,9 +1,9 @@
-<!-- Closes (Issueタイトル)[IssueのURL] の形で記入 -->
+<!-- Closes [Issueタイトル](IssueのURL) の形で記入 -->
 
 <!-- IssueをCloseしたくない場合 -->
-<!-- Related to ()[] -->
+<!-- Related to []() -->
 
-Closes ()[]
+Closes []()
 
 # 概要
 <!-- 変更した点の簡潔な説明 -->
