@@ -1,4 +1,4 @@
-import { Content } from '@/src/types/contentCategory';
+import { Content } from '@/types/contentCategory';
 
 type Props = {
   content: Content;

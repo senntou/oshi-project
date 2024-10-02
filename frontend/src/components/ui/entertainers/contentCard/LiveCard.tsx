@@ -1,4 +1,4 @@
-import { Live } from '@/src/types/contentCategory';
+import { Live } from '@/types/contentCategory';
 import CardTitle from './CardTitle';
 import CardDescription from './CardDiscription';
 

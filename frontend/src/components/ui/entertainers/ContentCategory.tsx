@@ -1,7 +1,7 @@
 'use client';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import { useState, useEffect, useRef } from 'react';
-import { Content } from '@/src/types/contentCategory';
+import { Content } from '@/types/contentCategory';
 import AnimeList from './contentList/AnimeList';
 import RadioList from './contentList/RadioList';
 import LiveList from './contentList/LiveList';
