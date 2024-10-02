@@ -1,6 +1,6 @@
 import CardTitle from './CardTitle';
 import CardDescription from './CardDiscription';
-import { Anime } from '@/app/types/contentCategory';
+import { Anime } from '@/src/types/contentCategory';
 
 type Props = {
   content: Anime;

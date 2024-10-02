@@ -1,4 +1,4 @@
-import { Content, Radio } from '@/app/types/contentCategory';
+import { Content, Radio } from '@/src/types/contentCategory';
 import RadioCard from '../contentCard/RadioCard';
 
 type Props = {

@@ -1,4 +1,4 @@
-import { Anime, Content } from '@/app/types/contentCategory';
+import { Anime, Content } from '@/src/types/contentCategory';
 import AnimeCard from '../contentCard/AnimeCard';
 
 type Props = {

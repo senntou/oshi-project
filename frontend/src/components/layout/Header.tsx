@@ -1,6 +1,6 @@
 'use client';
-import { useAuthContext } from '@/app/context/AuthProvider';
-import { login, logout } from '@/app/lib/auth/auth';
+import { useAuthContext } from '@/src/context/AuthProvider';
+import { login, logout } from '@/src/lib/auth/auth';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 

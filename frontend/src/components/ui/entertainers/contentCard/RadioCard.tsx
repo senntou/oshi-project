@@ -1,4 +1,4 @@
-import { Radio } from '@/app/types/contentCategory';
+import { Radio } from '@/src/types/contentCategory';
 import CardTitle from './CardTitle';
 import CardTag from './CardTag';
 import CardDescription from './CardDiscription';

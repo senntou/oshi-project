@@ -1,5 +1,5 @@
 'use client';
-import { auth } from '@/app/lib/auth/firebase';
+import { auth } from '@/src/lib/auth/firebase';
 import type { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import type { FC, ReactNode } from 'react';

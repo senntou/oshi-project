@@ -1,7 +1,7 @@
 'use client';
 
-import CreateContentForm from '@/app/components/ui/forms/CreateContentForm';
-import TitleCard from '@/app/components/ui/shared/TitleCard';
+import CreateContentForm from '@/src/components/ui/forms/CreateContentForm';
+import TitleCard from '@/src/components/ui/shared/TitleCard';
 
 const CreateContentPage = () => {
   return (

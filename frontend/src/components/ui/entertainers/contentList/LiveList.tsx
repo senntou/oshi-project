@@ -1,4 +1,4 @@
-import { Content, Live } from '@/app/types/contentCategory';
+import { Content, Live } from '@/src/types/contentCategory';
 import LiveCard from '../contentCard/LiveCard';
 
 type Props = {
