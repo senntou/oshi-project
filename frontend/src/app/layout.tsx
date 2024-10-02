@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import './styles/globals.css';
-import Header from './components/layout/Header';
-import { AuthProvider } from './context/AuthProvider';
-import Spacer from './components/layout/Spacer';
+import '../styles/globals.css';
+import Header from '../components/layout/Header';
+import { AuthProvider } from '../context/AuthProvider';
+import Spacer from '../components/layout/Spacer';
 
 export const metadata: Metadata = {
   title: '推しプロジェクト！',
