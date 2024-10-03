@@ -26,6 +26,7 @@ save-seed:
 
 gen:
 	oapi-codegen -config ./project/api/cfg.yaml ./project/api/openapi.yaml
+	cd frontend && npm run gen
 
 seed:
 	@echo "Running seed files..."
