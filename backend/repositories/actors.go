@@ -4,14 +4,13 @@ import (
 	"backend/openapi"
 )
 
+var getActorQuery string = `
+SELECT name
+FROM actor
+WHERE id = $1
+`
+
 func GetActorName(actorId string) (string, error) {
-
-	getActorQuery := `
-	SELECT name
-	FROM actor
-	WHERE id = $1
-	`
-
 	db, err := GetDB()
 	if err != nil {
 		return "", err
@@ -27,13 +26,12 @@ func GetActorName(actorId string) (string, error) {
 	return actorName, nil
 }
 
+var getActorsQuery string = `
+SELECT id, name
+FROM actor
+`
+
 func GetAllActors() ([]openapi.Actor, error) {
-
-	getActorsQuery := `
-	SELECT id, name
-	FROM actor
-	`
-
 	db, err := GetDB()
 	if err != nil {
 		return nil, err

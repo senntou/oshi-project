@@ -3,9 +3,9 @@ package controller
 import (
 	"backend/openapi"
 	"backend/repositories"
+	"database/sql"
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -50,17 +50,16 @@ func GetActorContents(c echo.Context) error {
 }
 
 func GetMe(c echo.Context) error {
-	log.Print("GetMe")
-	authHeader := c.Request().Header.Get("Authorization")
-	if authHeader == "" {
-		return echo.NewHTTPError(http.StatusUnauthorized, "missing or invalid token")
-	}
-	token := strings.TrimPrefix(authHeader, "Bearer ")
+	uid := c.Get("uid").(string)
+	user, err := repositories.GetUserByFirebaseUid(uid)
 
-	user := openapi.User{
-		Id:   "id",
-		Name: token,
+	if err == sql.ErrNoRows {
+		user, err = repositories.CreateUser(uid, "noname")
+	}
+	if err != nil {
+		log.Print(err)
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, openapi.UsersMeResponse{User: user})
+	return c.JSON(http.StatusOK, openapi.UsersMeResponse{User: *user})
 }
