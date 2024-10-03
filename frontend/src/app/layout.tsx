@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <AuthProvider>
           <Spacer>
-            <div className="flex flex-col h-full w-full font-MPlusRounded1cn border border-gray-300">
+            <div className=" flex size-full flex-col border border-gray-300 font-MPlusRounded1c">
               <Header />
               {children}
             </div>

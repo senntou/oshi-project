@@ -9,9 +9,9 @@ type Props = {
 
 const RadioCard = (props: Props) => {
   return (
-    <div className="p-5 border border-gray-200">
+    <div className="border border-gray-200 p-5">
       <CardTitle>{props.content.title}</CardTitle>
-      <div className="flex justify-start space-x-4 mb-2">
+      <div className="mb-2 flex justify-start space-x-4">
         <CardTag type="schedule_type">{props.content.schedule_type}</CardTag>
         {props.content.schedule_day && (
           <CardTag type="schedule_day">{props.content.schedule_day}</CardTag>

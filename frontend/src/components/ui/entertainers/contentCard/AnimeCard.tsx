@@ -7,7 +7,7 @@ type Props = {
 };
 const AnimeCard = (props: Props) => {
   return (
-    <div className="p-5 border border-b-0 border-gray-200">
+    <div className="border border-b-0 border-gray-200 p-5">
       <CardTitle>{props.content.title}</CardTitle>
       <CardDescription>{props.content.period}</CardDescription>
       <CardDescription>{props.content.description}</CardDescription>

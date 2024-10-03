@@ -18,9 +18,9 @@ const Header: React.FC = () => {
     logout();
   };
   return (
-    <header className="bg-basecolor text-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold font-HachiMaruPop">推しプロ！</h1>
+    <header className="bg-basecolor p-4 text-white shadow-md">
+      <div className="container mx-auto flex items-center justify-between">
+        <h1 className="font-HachiMaruPop text-2xl font-bold">推しプロ！</h1>
         <nav>
           <ul className="flex space-x-4">
             <li>

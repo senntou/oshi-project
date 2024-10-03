@@ -24,9 +24,9 @@ const CreateContentForm = () => {
     // TODO: APIにデータを送信する
   };
   return (
-    <form onSubmit={onSubmit} className="flex flex-col p-5 space-y-2">
+    <form onSubmit={onSubmit} className="flex flex-col space-y-2 p-5">
       {/* 演者名 */}
-      <div className="x-full">
+      <div className="">
         <label className="mb-1 block text-sm font-medium text-gray-700">
           演者名
         </label>
@@ -34,20 +34,19 @@ const CreateContentForm = () => {
           type="text"
           disabled
           value="楠木ともり"
-          className="block w-full p-1 rounded-md border border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-600"
+          className="block w-full rounded-md border border-gray-300 p-1 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-600"
           placeholder="Full name"
         />
       </div>
 
       {/* カテゴリー */}
-      <div className="x-full">
+      <div className="">
         <label className="mb-1 block text-sm font-medium text-gray-700">
           カテゴリー
         </label>
         <select
           onChange={onChangeCategory}
-          className="block w-full p-1 rounded-md border-gray-300 shadow-sm focus:border-primary-300 
-              focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+          className="block w-full rounded-md border-gray-300 p-1 shadow-sm focus:ring"
         >
           <option value="NULL">未選択</option>
           <option value={Category.Anime}>アニメ</option>
@@ -58,7 +57,7 @@ const CreateContentForm = () => {
 
       {/* アニメ用フォーム */}
       {category === 'ANIME' && (
-        <div className="x-full space-y-2">
+        <div className="space-y-2">
           {/* タイトル */}
           <InputField
             title="タイトル"
@@ -76,7 +75,7 @@ const CreateContentForm = () => {
 
       {/* ラジオ用フォーム */}
       {category === 'RADIO' && (
-        <div className="x-full space-y-2">
+        <div className="space-y-2">
           {/* タイトル */}
           <InputField
             title="タイトル"
@@ -94,7 +93,7 @@ const CreateContentForm = () => {
 
       {/* ライブ用フォーム */}
       {category === 'LIVE' && (
-        <div className="x-full space-y-2">
+        <div className="space-y-2">
           {/* タイトル */}
           <InputField
             title="タイトル"
@@ -112,14 +111,13 @@ const CreateContentForm = () => {
 
       {/* 日程 */}
       {category !== 'NULL' && (
-        <div className="x-full space-y-1">
+        <div className="space-y-1">
           <label className="mb-1 block text-sm font-medium text-gray-700">
             日程
           </label>
           <select
             onChange={onChangeSchedule}
-            className="block w-full p-1 rounded-md border-gray-300 shadow-sm focus:border-primary-300 
-              focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+            className="block w-full rounded-md border-gray-300 p-1 shadow-sm focus:ring"
           >
             <option value="NULL">未選択</option>
             <option value={Schedule.Specific}>指定日</option>

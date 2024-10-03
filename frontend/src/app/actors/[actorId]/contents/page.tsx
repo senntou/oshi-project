@@ -60,11 +60,11 @@ const ActorPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex size-full flex-col">
       <ActorNameCard>{actor.name}</ActorNameCard>
-      <div className="flex h-full max-h-full w-full justify-center">
-        <div className="relative h-full w-full">
-          <div className="absolute top-0 bottom-0 left-0 right-0 overflow-y-scroll no-scrollbar">
+      <div className="flex size-full max-h-full justify-center">
+        <div className="relative size-full">
+          <div className="no-scrollbar absolute inset-0 overflow-y-scroll">
             <ContentCatergoryList contentCategories={actor.contentCategories} />
           </div>
         </div>
@@ -72,7 +72,7 @@ const ActorPage = () => {
         <div className="relative">
           <button
             onClick={onClickNewButton}
-            className="absolute bottom-5 right-5 bg-basecolor text-2xl text-white rounded-full p-2 shadow"
+            className="absolute bottom-5 right-5 rounded-full bg-basecolor p-2 text-2xl text-white shadow"
           >
             <RiStickyNoteAddLine />
           </button>
