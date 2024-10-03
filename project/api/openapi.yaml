@@ -9,6 +9,12 @@ servers:
   - url: http://localhost:5000
 
 components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      description: Authorization header using the Bearer scheme.
+
   schemas:
     HealthCheckResponse:
       type: object
@@ -17,6 +23,17 @@ components:
           type: string
       required:
         - status
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - name
 
     Actor:
       type: object
@@ -76,6 +93,13 @@ components:
         - createdAt
         - updatedAt
 
+    UsersMeResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - user
 
     AnimeContent:
       type: object
@@ -272,3 +296,20 @@ paths:
         "500":
           description: Internal Server Error
       summary: Season型のコンテンツを作成するエンドポイント
+
+  /v1/users/me:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersMeResponse"
+          description: Success
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      security:
+        - bearer: []
+      summary: ユーザー情報の取得用エンドポイント

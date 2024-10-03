@@ -9,5 +9,8 @@
     "sash.hoverBorder": "#fa1b49",
     "sideBar.border": "#fa1b49"
   },
-  "peacock.remoteColor": "#dd0531"
+  "peacock.remoteColor": "#dd0531",
+
+  "editor.formatOnSave": true,
+  "go.formatTool": "gofmt"
 }

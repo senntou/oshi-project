@@ -3,6 +3,8 @@ package controller
 import (
 	"backend/openapi"
 	"backend/repositories"
+	"database/sql"
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -45,4 +47,19 @@ func GetActorContents(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, response)
+}
+
+func GetMe(c echo.Context) error {
+	uid := c.Get("uid").(string)
+	user, err := repositories.GetUserByFirebaseUid(uid)
+
+	if err == sql.ErrNoRows {
+		user, err = repositories.CreateUser(uid, "noname")
+	}
+	if err != nil {
+		log.Print(err)
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, openapi.UsersMeResponse{User: *user})
 }

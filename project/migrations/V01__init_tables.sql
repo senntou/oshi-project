@@ -11,7 +11,7 @@ $$ language 'plpgsql';
 -- User table
 CREATE TABLE "user" (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    firebase_id VARCHAR NOT NULL,
+    firebase_uid VARCHAR NOT NULL,
     name VARCHAR NOT NULL,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
