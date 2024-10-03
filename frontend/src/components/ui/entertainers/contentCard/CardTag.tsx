@@ -16,7 +16,7 @@ const CardTag = (props: Props) => {
   };
 
   return (
-    <span className={`px-2 py-1 rounded ${getColorClasses(props.type)}`}>
+    <span className={`rounded px-2 py-1 ${getColorClasses(props.type)}`}>
       {props.children}
     </span>
   );

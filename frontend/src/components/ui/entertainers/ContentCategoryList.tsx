@@ -7,7 +7,7 @@ type Props = {
 
 const ContentCatergoryList = (props: Props) => {
   return (
-    <div className="flex flex-col p-1 space-y-1">
+    <div className="flex flex-col space-y-1 p-1">
       {Object.entries(props.contentCategories).map(([category, contents]) => (
         <ContentCategory
           key={category}

@@ -2,9 +2,10 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
-    "plugin:import/errors"
+    "plugin:import/errors",
+    "plugin:tailwindcss/recommended"
   ],
-  "plugins": ["import"],
+  "plugins": ["import", "tailwindcss"],
   "rules": {
     "import/no-unresolved": "error"
   }

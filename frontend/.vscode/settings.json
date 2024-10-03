@@ -9,5 +9,30 @@
     "sash.hoverBorder": "#93e6fc",
     "sideBar.border": "#93e6fc"
   },
-  "peacock.remoteColor": "#61dafb"
+  "peacock.remoteColor": "#61dafb",
+  
+  
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  "vs-code-prettier-eslint.prettierLast": true,
+  "files.insertFinalNewline": true,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports": "always",
+    "source.fixAll.eslint": "explicit"
+  }
 }

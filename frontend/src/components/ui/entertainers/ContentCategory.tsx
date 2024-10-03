@@ -36,30 +36,30 @@ const ContentCategory = (props: Props) => {
   }, [isOpen]);
 
   return (
-    <div className="border border-gray-200 rounded-lg shadow-md">
+    <div className="rounded-lg border border-gray-200 shadow-md">
       <button
         type="button"
         onClick={onClick}
-        className="flex items-center justify-between w-full p-5"
+        className="flex w-full items-center justify-between p-5"
       >
         <span>
           {categoryNames[props.category as keyof typeof categoryNames]}
         </span>
         <div className="flex space-x-1">
-          <span className="rounded-full bg-gray-200 text-gray-800 px-2">
+          <span className="rounded-full bg-gray-200 px-2 text-gray-800">
             {props.contents.length}
           </span>
           {isOpen ? (
-            <SlArrowUp className="w-5 h-5 m-auto" />
+            <SlArrowUp className="m-auto size-5" />
           ) : (
-            <SlArrowDown className="w-5 h-5 m-auto" />
+            <SlArrowDown className="m-auto size-5" />
           )}
         </div>
       </button>
 
       <div
         ref={contentRef}
-        className="transition-max-height duration-300 ease-in-out overflow-hidden max-h-0"
+        className="max-h-0 overflow-hidden duration-300 ease-in-out"
       >
         {props.category === 'anime' && <AnimeList content={props.contents} />}
         {props.category === 'radio' && <RadioList content={props.contents} />}
