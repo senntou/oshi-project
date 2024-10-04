@@ -61,7 +61,7 @@ FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 
 -- Appearing Content table
-CREATE TABLE appearing_content (
+CREATE TABLE content (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     actor_id UUID NOT NULL,
     title VARCHAR NOT NULL,
@@ -78,30 +78,30 @@ CREATE TABLE appearing_content (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (actor_id) REFERENCES actor(id)
 );
-CREATE TRIGGER update_appearing_content_timestamp
-BEFORE UPDATE ON appearing_content
+CREATE TRIGGER update_content_timestamp
+BEFORE UPDATE ON content
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 -- Index
-CREATE INDEX appearing_content_actor_id_index ON appearing_content(actor_id);
+CREATE INDEX content_actor_id_index ON content(actor_id);
 
 -- Content Date table
 CREATE TABLE content_specific_date (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    appearing_content_id UUID NOT NULL,
+    content_id UUID NOT NULL,
     content_date Date NOT NULL,
     content_custom_title VARCHAR NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (appearing_content_id) REFERENCES appearing_content(id)
+    FOREIGN KEY (content_id) REFERENCES content(id)
 );
 CREATE TRIGGER update_content_specific_date_timestamp
 BEFORE UPDATE ON content_specific_date
 FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp();
 -- Index
-CREATE INDEX content_specific_date_appearing_content_id_index ON content_specific_date(appearing_content_id);
+CREATE INDEX content_specific_date_content_id_index ON content_specific_date(content_id);
 
 -- Update Appearing Content table
 CREATE TABLE content_action_log (
@@ -122,7 +122,7 @@ CREATE TABLE content_action_log (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES "user"(id),
-    FOREIGN KEY (content_id) REFERENCES appearing_content(id) 
+    FOREIGN KEY (content_id) REFERENCES content(id) 
 );
 CREATE TRIGGER update_content_action_log_timestamp
 BEFORE UPDATE ON content_action_log

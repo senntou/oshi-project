@@ -53,8 +53,6 @@ const SeasonContentRequestBody = z
     season: Season,
   })
   .passthrough();
-const User = z.object({ id: z.string(), name: z.string() }).passthrough();
-const UsersMeResponse = z.object({ user: User }).passthrough();
 const Category = z.enum([
   'ANIME',
   'RADIO',
@@ -80,6 +78,8 @@ const ContentResponse = z
     updatedAt: z.string(),
   })
   .passthrough();
+const User = z.object({ id: z.string(), name: z.string() }).passthrough();
+const UsersMeResponse = z.object({ user: User }).passthrough();
 
 export const schemas = {
   HealthCheckResponse,
@@ -93,8 +93,8 @@ export const schemas = {
   ContentList,
   ActorContentsResponse,
   SeasonContentRequestBody,
-  User,
-  UsersMeResponse,
   Category,
   ContentResponse,
+  User,
+  UsersMeResponse,
 };

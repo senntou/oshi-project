@@ -49,6 +49,21 @@ func GetActorContents(c echo.Context) error {
 	return c.JSON(http.StatusOK, response)
 }
 
+func PostSeasonContent(c echo.Context) error {
+	var seasonContent openapi.SeasonContentRequestBody
+	if err := c.Bind(&seasonContent); err != nil {
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	// Validate the request body
+	if err := c.Validate(seasonContent); err != nil {
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	log.Print(seasonContent)
+	return c.JSON(http.StatusOK, seasonContent)
+}
+
 func GetMe(c echo.Context) error {
 	uid := c.Get("uid").(string)
 	user, err := repositories.GetUserByFirebaseUid(uid)
