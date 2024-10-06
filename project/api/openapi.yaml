@@ -74,32 +74,10 @@ components:
           type: string
         title:
           type: string
-        category:
-          $ref: '#/components/schemas/Category'
-        description:
-          type: string
-        scheduleType:
-          type: string
-        startDate:
-          type: string
-        endDate:
-          type: string
-        year:
-          type: integer
-        season:
-          $ref: '#/components/schemas/Season'
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
       required:
         - id
         - actorId
         - title
-        - category
-        - scheduleType
-        - createdAt
-        - updatedAt
 
     UsersMeResponse:
       type: object
@@ -132,8 +110,6 @@ components:
     SeasonContentRequestBody:
       type: object
       properties:
-        userId:
-          type: string
         title:
           type: string
         description:
@@ -143,7 +119,6 @@ components:
         season:
           $ref: '#/components/schemas/Season'
       required:
-        - userId
         - title
         - description
         - year
@@ -297,12 +272,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentList'
+                $ref: '#/components/schemas/ContentResponse'
           description: Success
         "400":
           description: Bad Request
         "500":
           description: Internal Server Error
+      security:
+        - bearer: []
       summary: Season型のコンテンツを作成するエンドポイント
 
   /v1/users/me:

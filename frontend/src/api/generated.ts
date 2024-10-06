@@ -46,12 +46,14 @@ const ActorContentsResponse = z
   .passthrough();
 const SeasonContentRequestBody = z
   .object({
-    userId: z.string(),
     title: z.string(),
     description: z.string(),
     year: z.number().int(),
     season: Season,
   })
+  .passthrough();
+const ContentResponse = z
+  .object({ id: z.string(), actorId: z.string(), title: z.string() })
   .passthrough();
 const User = z.object({ id: z.string(), name: z.string() }).passthrough();
 const UsersMeResponse = z.object({ user: User }).passthrough();
@@ -64,22 +66,6 @@ const Category = z.enum([
   'ANNIVERSARY',
   'OTHER',
 ]);
-const ContentResponse = z
-  .object({
-    id: z.string(),
-    actorId: z.string(),
-    title: z.string(),
-    category: Category,
-    description: z.string().optional(),
-    scheduleType: z.string(),
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
-    year: z.number().int().optional(),
-    season: Season.optional(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-  })
-  .passthrough();
 
 export const schemas = {
   HealthCheckResponse,
@@ -93,8 +79,8 @@ export const schemas = {
   ContentList,
   ActorContentsResponse,
   SeasonContentRequestBody,
+  ContentResponse,
   User,
   UsersMeResponse,
   Category,
-  ContentResponse,
 };

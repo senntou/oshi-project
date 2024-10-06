@@ -43,3 +43,10 @@ run/backend:
 
 run/admin:
 	cd admin && npm run dev
+
+run:
+	@trap 'kill 0' SIGINT; \
+	(cd frontend && npm run dev) & \
+	(cd backend && go run main.go) & \
+	(cd admin && npm run dev) & \
+	wait
