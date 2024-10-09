@@ -47,6 +47,7 @@ func main() {
 
 	e.GET("v1/actors", controller.GetAllActors)
 	e.GET("v1/actors/:actorId/contents", controller.GetActorContents)
+	e.POST("v1/actors/:actorId/contents/season", controller.PostSeasonContent, auth.AuthMiddleware)
 
 	e.GET("v1/users/me", controller.GetMe, auth.AuthMiddleware)
 

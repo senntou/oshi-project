@@ -6,27 +6,27 @@ import (
 
 var getActorContentsQuery string = `
 SELECT
-	ac.id,
-	ac.title,
-	ac.description,
-	ac.year,
-	ac.season,
-	ac.schedule_type,
-	ac.start_date,
-	ac.end_date,
+	content.id,
+	content.title,
+	content.description,
+	content.year,
+	content.season,
+	content.schedule_type,
+	content.start_date,
+	content.end_date,
 	csd.content_date
 FROM
-	appearing_content as ac
+	content as content
 	JOIN
 		actor as actor
 	ON
-		ac.actor_id = actor.id
+		content.actor_id = actor.id
 	LEFT JOIN
 		content_specific_date as csd
 	ON
-		ac.id = csd.appearing_content_id
+		content.id = csd.appearing_content_id
 WHERE
-	ac.actor_id = $1
+	content.actor_id = $1
 `
 
 func GetActorContents(actorId string) (openapi.ContentList, error) {

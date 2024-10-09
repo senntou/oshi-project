@@ -48,6 +48,13 @@ type ContentList struct {
 	Radio []RadioContent `json:"radio"`
 }
 
+// ContentResponse defines model for ContentResponse.
+type ContentResponse struct {
+	ActorId string `json:"actorId"`
+	Id      string `json:"id"`
+	Title   string `json:"title"`
+}
+
 // HealthCheckResponse defines model for HealthCheckResponse.
 type HealthCheckResponse struct {
 	Status string `json:"status"`
@@ -79,7 +86,6 @@ type SeasonContentRequestBody struct {
 	Description string `json:"description"`
 	Season      Season `json:"season"`
 	Title       string `json:"title"`
-	UserId      string `json:"userId"`
 	Year        int    `json:"year"`
 }
 
