@@ -24,6 +24,14 @@ components:
       required:
         - status
 
+    Category:
+      type: string
+      enum: [ANIME, RADIO, LIVE, EVENT, PROGRAM, ANNIVERSARY, OTHER]
+
+    Season:
+      type: string
+      enum: [SPRING, SUMMER, AUTUMN, WINTER]
+
     User:
       type: object
       properties:
@@ -67,7 +75,7 @@ components:
         title:
           type: string
         category:
-          type: string
+          $ref: '#/components/schemas/Category'
         description:
           type: string
         scheduleType:
@@ -79,7 +87,7 @@ components:
         year:
           type: integer
         season:
-          type: string
+          $ref: '#/components/schemas/Season'
         createdAt:
           type: string
         updatedAt:
@@ -113,7 +121,7 @@ components:
         year:
           type: integer
         season:
-          type: string
+          $ref: '#/components/schemas/Season'
       required:
         - contentId
         - title
@@ -133,7 +141,7 @@ components:
         year:
           type: integer
         season:
-          type: string
+          $ref: '#/components/schemas/Season'
       required:
         - userId
         - title

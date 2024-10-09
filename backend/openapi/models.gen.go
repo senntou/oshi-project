@@ -7,6 +7,14 @@ const (
 	BearerScopes = "bearer.Scopes"
 )
 
+// Defines values for Season.
+const (
+	AUTUMN Season = "AUTUMN"
+	SPRING Season = "SPRING"
+	SUMMER Season = "SUMMER"
+	WINTER Season = "WINTER"
+)
+
 // Actor defines model for Actor.
 type Actor struct {
 	Id   string `json:"id"`
@@ -28,7 +36,7 @@ type ActorsResponse struct {
 type AnimeContent struct {
 	ContentId   string `json:"contentId"`
 	Description string `json:"description"`
-	Season      string `json:"season"`
+	Season      Season `json:"season"`
 	Title       string `json:"title"`
 	Year        int    `json:"year"`
 }
@@ -63,10 +71,13 @@ type RadioContent struct {
 	Title        string `json:"title"`
 }
 
+// Season defines model for Season.
+type Season string
+
 // SeasonContentRequestBody defines model for SeasonContentRequestBody.
 type SeasonContentRequestBody struct {
 	Description string `json:"description"`
-	Season      string `json:"season"`
+	Season      Season `json:"season"`
 	Title       string `json:"title"`
 	UserId      string `json:"userId"`
 	Year        int    `json:"year"`
