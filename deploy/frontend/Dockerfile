@@ -13,13 +13,13 @@ ENV NEXT_PUBLIC_MEASUREMENT_ID="G-JF4J1BMJMZ"
 WORKDIR /app
 
 # パッケージ情報をコピー
-COPY ../../frontend/package*.json ./frontend/
+COPY frontend/package*.json ./frontend/
 
 # 依存関係をインストール
 RUN cd frontend && npm install
 
 # プロジェクトのすべてのファイルをコンテナにコピー
-COPY ../../frontend ./frontend
+COPY frontend ./frontend
 
 # Next.jsのビルドを実行
 RUN cd frontend && npm run build
