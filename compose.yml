@@ -1,19 +1,17 @@
 services:
   postgres:
     image: postgres:15.1-alpine
-    container_name: postgres
+    container_name: oshi-postgres
     volumes:
       - ./project/seed:/home/seed
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
-    ports:
-      - 5432:5432
 
   migrate:
     image: flyway/flyway:9.8.1
-    container_name: migrate
+    container_name: oshi-migrate
     command: -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB} -user=${POSTGRES_USER} -password=${POSTGRES_PASSWORD} -locations=filesystem:/flyway/sql migrate
     volumes:
       - ./project/migrations:/flyway/sql
@@ -22,10 +20,26 @@ services:
 
   swagger-ui:
     image: swaggerapi/swagger-ui
-    container_name: swagger
+    container_name: oshi-swagger
     ports:
       - 8080:8080
     environment:
       - SWAGGER_JSON=/api/openapi.yaml
     volumes:
       - ./project/api:/api
+
+  go:
+    container_name: oshi-air
+    volumes:
+      - ./backend/:/project/
+    working_dir: /project
+    tty: true
+    build: "./project/air/"
+    ports:
+      - 5000:5000
+    environment:
+      - ENV=development
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    command: sh -c 'go mod tidy && air'

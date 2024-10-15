@@ -39,7 +39,7 @@ run/frontend:
 	cd frontend && npm run dev
 
 run/backend:
-	cd backend && go run main.go
+	docker compose up go
 
 run/admin:
 	cd admin && npm run dev

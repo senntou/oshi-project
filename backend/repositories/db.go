@@ -9,9 +9,35 @@ import (
 	_ "github.com/lib/pq"
 )
 
+var db *sql.DB
+
+func GetDB() (*sql.DB, error) {
+	env := os.Getenv("ENV")
+
+	if db != nil {
+		return db, nil
+	}
+
+	if env == "development" {
+		dbPool, err := getDBPoolForDevelopment()
+		if err != nil {
+			return nil, err
+		}
+		db = dbPool
+	} else {
+		dbPool, err := getDBPoolForProduction()
+		if err != nil {
+			return nil, err
+		}
+		db = dbPool
+	}
+
+	return db, nil
+}
+
 // connectUnixSocket initializes a Unix socket connection pool for
 // a Cloud SQL instance of Postgres.
-func GetDB() (*sql.DB, error) {
+func getDBPoolForProduction() (*sql.DB, error) {
 	mustGetenv := func(k string) string {
 		v := os.Getenv(k)
 		if v == "" {
@@ -42,22 +68,22 @@ func GetDB() (*sql.DB, error) {
 	return dbPool, nil
 }
 
-// func GetDB() (*sql.DB, error) {
+func getDBPoolForDevelopment() (*sql.DB, error) {
 
-// 	user := os.Getenv("POSTGRES_USER")
-// 	dbname := os.Getenv("POSTGRES_DB")
-// 	password := os.Getenv("POSTGRES_PASSWORD")
+	user := os.Getenv("POSTGRES_USER")
+	dbname := os.Getenv("POSTGRES_DB")
+	password := os.Getenv("POSTGRES_PASSWORD")
 
-// 	dbDriver := "postgres"
-// 	dsn := fmt.Sprintf(
-// 		"host=localhost port=5432 user=%s password=%s dbname=%s sslmode=disable",
-// 		user, password, dbname,
-// 	)
+	dbDriver := "postgres"
+	dsn := fmt.Sprintf(
+		"host=postgres port=5432 user=%s password=%s dbname=%s sslmode=disable",
+		user, password, dbname,
+	)
 
-// 	db, err := sql.Open(dbDriver, dsn)
+	dbPool, err := sql.Open(dbDriver, dsn)
 
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return db, err
-// }
+	if err != nil {
+		return nil, err
+	}
+	return dbPool, err
+}
