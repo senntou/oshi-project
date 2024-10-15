@@ -4,22 +4,13 @@ import (
 	"backend/auth"
 	"backend/controller"
 	"log"
+	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func loadenv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-}
-
 func main() {
-	loadenv()
-
 	e := echo.New()
 
 	// Logger middleware
@@ -51,5 +42,9 @@ func main() {
 
 	e.GET("v1/users/me", controller.GetMe, auth.AuthMiddleware)
 
-	e.Logger.Fatal(e.Start(":5000"))
+	port := "5000"
+	if envPort := os.Getenv("PORT"); envPort != "" {
+		port = envPort
+	}
+	e.Logger.Fatal(e.Start(":" + port))
 }
